@@ -16,12 +16,20 @@ namespace CodeGenerator
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LoadSrc();
+            try
+            {
+                LoadSrc();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
         }
         private void LoadSrc()
         {
             string srcRoot = txtSRCPATH.Text;
-           mapPath = new MapPath(srcRoot);
+            mapPath = new MapPath(srcRoot);
             Assembly assembly = Assembly.LoadFrom(mapPath.DomainDLL);
 
             var types = assembly.GetTypes().Where(a => a.FullName.Contains("Entities") && a.IsClass).OrderBy(a => a.FullName).ToList();
@@ -38,7 +46,7 @@ namespace CodeGenerator
                 {
                     chkFileList.Items.Add(file);
                 }
-            }   
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -60,27 +68,37 @@ namespace CodeGenerator
             foreach (var classItem in chkEntityList.CheckedItems)
             {
                 string className = classItem.ToString();
-              //  continue;
+                //  continue;
                 var entityItem = types.FirstOrDefault(t => t.FullName == className);
 
-              var props= CGLib.GeneratePropertiesCode(entityItem);
- 
+                var props = CGLib.GeneratePropertiesCode(entityItem);
+
                 var tmp = className.Split('.');
-                var clsNameWOONB = tmp[tmp.Length-1].Replace("ONB_", "");
+                var clsNameWOONB = tmp[tmp.Length - 1].Replace("ONB_", "");
                 foreach (var demoFileName in chkFileList.Items)
                 {
                     string demoFileName2 = demoFileName.ToString();
-                  
+
                     CGLib.GenerateFromTemplate(demoFileName2, clsNameWOONB, props);
                 }
 
-                
+
             }
             MessageBox.Show("Done");
         }
-     
-        
-      
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadSrc();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+        }
     }
 }
  

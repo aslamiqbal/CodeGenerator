@@ -85,6 +85,7 @@
             btnBrowse.TabIndex = 2;
             btnBrowse.Text = "...";
             btnBrowse.UseVisualStyleBackColor = true;
+            btnBrowse.Click += btnBrowse_Click;
             // 
             // button3
             // 
