@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="srcStructure\Api\Endpoints\" />
+    <Folder Include="srcStructure\Application\Features\Model1\Commands\" />
+    <Folder Include="srcStructure\Application\Features\Model1\Dtos\" />
+    <Folder Include="srcStructure\Application\Features\Model1\EventHandlers\" />
+    <Folder Include="srcStructure\Domain\" />
+    <Folder Include="srcStructure\gRPC\" />
+    <Folder Include="srcStructure\Infrastructure\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="srcStructure\Api\Endpoints\Model1.cs.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="srcStructure\Application\Features\Model1\Commands\Model1Command.cs.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="srcStructure\Application\Features\Model1\Dtos\Model1Dto.cs.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="srcStructure\Application\Features\Model1\EventHandlers\Model1EventHandler.cs.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="srcStructure\Application\Features\Model1\Queries\Model1Query.cs.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="srcStructure\Domain\Events\Model1\Model1Event.cs.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

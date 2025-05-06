@@ -1,0 +1,42 @@
+using HrmBaharu.Onb.Application.Common.Interfaces;
+using HrmBaharu.Onb.Application.Common.Mappings;
+using HrmBaharu.Onb.Application.Common.Models;
+using HrmBaharu.Onb.Domain.Entities;
+
+namespace HrmBaharu.Onb.Application.Features.Model1.Commands;
+
+public class Model1Command : IMapFrom<ONB_Model1>, IRequest<Response<int>>
+{
+
+    public void Mapping(Profile profile)
+    {
+        profile.CreateMap<Model1Command, ONB_Model1>();
+    }
+}
+
+public class Model1CommandHandler : IRequestHandler<Model1Command, Response<int>>
+{
+    private readonly IApplicationDbContext _context;
+    private readonly IMapper _mapper;
+
+    public Model1CommandHandler(IApplicationDbContext context, IMapper mapper)
+    {
+        _context = context;
+        _mapper = mapper;
+    }
+
+    public async Task<Response<int>> Handle(Model1Command request, CancellationToken cancellationToken)
+    {
+        var entity = _mapper.Map<ONB_Model1>(request);
+        entity.CreatedById = Guid.Parse("2FDCB19D-764F-4F86-9479-EA36ACF1BBC6");///TODO: Need to change to current user from JWT token
+        entity.CreatedDate = DateTime.Now;
+
+        _context.ONB_Model1.Add(entity);
+        await _context.SaveChangesAsync(cancellationToken);
+
+        return new Response<int>
+        {
+            Data = entity.Id, Success = true, Message = "Created Successfully"
+        };
+    }
+}

@@ -1,0 +1,14 @@
+﻿using MediatR;
+
+namespace HrmBaharu.Onb.Domain.Events.Model1;
+
+public class Model1Event : BaseEvent
+{
+    public Model1Event(ONB_Model1 item)
+    {
+        Item = item;
+    }
+
+    public ONB_Model1 Item { get; }
+
+}

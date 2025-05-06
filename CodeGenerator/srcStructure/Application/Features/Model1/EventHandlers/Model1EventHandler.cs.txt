@@ -1,0 +1,22 @@
+using Microsoft.Extensions.Logging;
+using HrmBaharu.Onb.Domain.Events.Model1;
+
+namespace HrmBaharu.Onb.Application.Features.Model1.EventHandlers;
+
+public class Model1EventHandler : INotificationHandler<Model1Event>
+{
+    private readonly ILogger<Model1EventHandler> _logger;
+
+    public Model1EventHandler(ILogger<Model1EventHandler> logger)
+    {
+        _logger = logger;
+    }
+
+    public Task Handle(Model1Event _event, CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("Domain Event: {DomainEvent}", _event.GetType().Name);
+        _logger.LogInformation(@$"{_event.GetType().Name}, {_event.Item}");
+
+        return Task.CompletedTask;
+    }
+}

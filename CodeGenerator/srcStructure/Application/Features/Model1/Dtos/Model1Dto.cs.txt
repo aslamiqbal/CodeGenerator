@@ -1,0 +1,15 @@
+using HrmBaharu.Onb.Domain.Entities;
+namespace HrmBaharu.Onb.Application.Features.Model1.Dtos;
+
+public class Model1Dto
+{
+@properties
+
+    private class Mapping : Profile
+    {
+        public Mapping()
+        {
+            CreateMap <ONB_Model1, Model1Dto> ();
+        }
+    }
+}

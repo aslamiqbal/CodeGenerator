@@ -1,0 +1,32 @@
+﻿using HrmBaharu.Onb.Application.Common.Interfaces;
+using HrmBaharu.Onb.Application.Common.Mappings;
+using HrmBaharu.Onb.Application.Common.Models;
+using HrmBaharu.Onb.Application.Features.Model1.Dtos;
+
+namespace HrmBaharu.Onb.Application.Features.Model1.Queries;
+
+public class Model1Query : IRequest<PaginatedList<Model1Dto>>
+{
+    public int PageNumber { get; init; } = 1;
+    public int PageSize { get; init; } = 10;
+}
+
+public class Model1QueryHandler : IRequestHandler<Model1Query, PaginatedList<Model1Dto>>
+{
+    private readonly IApplicationDbContext _context;
+    private readonly IMapper _mapper;
+
+    public Model1QueryHandler(IApplicationDbContext context, IMapper mapper)
+    {
+        _context = context;
+        _mapper = mapper;
+    }
+
+    public async Task<PaginatedList<Model1Dto>> Handle(Model1Query request, CancellationToken cancellationToken)
+    {
+        return await _context.ONB_Model1
+            .OrderBy(x => x.Id)
+            .ProjectTo<Model1Dto>(_mapper.ConfigurationProvider)
+            .PaginatedListAsync(request.PageNumber, request.PageSize);
+    }
+}

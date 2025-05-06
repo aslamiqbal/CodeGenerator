@@ -1,0 +1,21 @@
+
+using HrmBaharu.Onb.Application.Common.Models;
+using HrmBaharu.Onb.Application.Features.Model1.Dtos;
+using HrmBaharu.Onb.Application.Features.Model1.Queries;
+
+namespace HrmBaharu.Onb.Api.Endpoints;
+
+public class Model1 : EndpointGroupBase
+{
+    public override void Map(WebApplication app)
+    {
+        app.MapGroup(this)
+            .MapGet(GetModel1ItemsWithPagination);
+
+    }
+    public Task<PaginatedList<Model1Dto>> GetModel1ItemsWithPagination
+        (ISender sender, [AsParameters] Model1Query query)
+    {
+        return sender.Send(query);
+    }
+}
